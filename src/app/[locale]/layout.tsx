@@ -10,16 +10,15 @@ export default async function LocaleLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
-  // Await params before destructuring
-  const { locale } = await params;
+  // Directly destructure params without awaiting
+  const { locale } = params;
 
   // Ensure that the incoming `locale` is valid
-  if (!routing.locales.includes((locale as 'en') || 'id')) {
+  if (!routing.locales.includes(locale as 'en' | 'id')) {
     notFound();
   }
 
   // Providing all messages to the client
-  // side is the easiest way to get started
   const messages = await getMessages();
 
   return (
