@@ -9,8 +9,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        yellow: "#FFBE00",        // Warna kuning
+        "orange-1": "#FFBE00",   // Warna oranye pertama
+        "orange-2": "#FF7400",   // Warna oranye kedua
+        "orange-red": "#FF4800", // Warna oranye-merah
+        red: "#FF0600",          // Warna merah
       },
     },
   },
