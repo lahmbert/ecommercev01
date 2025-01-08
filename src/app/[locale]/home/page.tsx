@@ -1,7 +1,5 @@
 'use client';
 import Navbar from '@/components/Navbar';
-import { useTranslations } from 'next-intl';
-import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import '../globals.css';
 import Footer from '@/components/Footer';
@@ -9,8 +7,6 @@ import Footer from '@/components/Footer';
 export default function HomePage() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const totalSlides = 5; // Jumlah slide yang ada
-  const t = useTranslations('HomePage');
-
   // Fungsi untuk pindah ke slide tertentu
   const goToSlide = (index: number) => {
     setCurrentSlide(index);

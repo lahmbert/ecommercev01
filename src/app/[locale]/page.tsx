@@ -1,8 +1,7 @@
-
 import Cookies from 'js-cookie';
 import { redirect } from 'next/navigation';
- 
+
 export default function RootPage() {
-     let locale = Cookies.get('NEXT_LOCALE') || 'en';
-  return redirect(`/${locale}/home`) ;
+  const locale = Cookies.get('NEXT_LOCALE') || 'en'; // Changed 'let' to 'const'
+  return redirect(`/${locale}/home`);
 }
