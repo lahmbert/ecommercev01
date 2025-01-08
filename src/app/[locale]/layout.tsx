@@ -3,36 +3,29 @@ import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 
-type Locale = (typeof routing.locales)[number]; // Infer 'en' | 'id'
-
 export default async function LocaleLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
-  params: { locale: string } | Promise<{ locale: string }>; // `params` may be a promise
+  params: { locale: string };
 }) {
-  // Await `params` if it is a promise
-  const resolvedParams = await params;
-  const { locale } = resolvedParams;
+  // Await params before destructuring
+  const { locale } = await params;
 
-  // Ensure the `locale` is valid
-  if (!routing.locales.includes(locale as Locale)) {
-    return notFound(); // Safely handle invalid locales
+  // Ensure that the incoming `locale` is valid
+  if (!routing.locales.includes((locale as 'en') || 'id')) {
+    notFound();
   }
 
-  // Retrieve messages for the specified locale
-  const messages = await getMessages({ locale: locale as Locale }).catch(
-    (error) => {
-      console.error(`Failed to load messages for locale "${locale}":`, error);
-      return {}; // Fallback to an empty object if loading fails
-    }
-  );
+  // Providing all messages to the client
+  // side is the easiest way to get started
+  const messages = await getMessages();
 
   return (
     <html lang={locale}>
       <body>
-        <NextIntlClientProvider locale={locale as Locale} messages={messages}>
+        <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>
       </body>
